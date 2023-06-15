@@ -1,4 +1,4 @@
-package com.yusufcansenturk.q_14_cleanmovieappcompose.ui.theme
+package com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

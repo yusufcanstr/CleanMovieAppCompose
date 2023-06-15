@@ -1,4 +1,4 @@
-package com.yusufcansenturk.q_14_cleanmovieappcompose
+package com.yusufcansenturk.q_14_cleanmovieappcompose.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.yusufcansenturk.q_14_cleanmovieappcompose.ui.theme.Q14CleanMovieAppComposeTheme
+import com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.theme.Q14CleanMovieAppComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
