@@ -11,22 +11,18 @@ import java.io.IOError
 import javax.inject.Inject
 
 class GetMovieDetailsUseCase @Inject constructor(
-    private val repository: MovieRepository
-) {
+    private val repository : MovieRepository
+    ) {
 
     fun executeGetMovieDetails(imdbId: String) : Flow<Resource<MovieDetail>> = flow {
         try {
             emit(Resource.Loading())
-            val movieDetail = repository.getMovieDetail(imdbId)
-            if (movieDetail.Response == "true") {
-                emit(Resource.Success(movieDetail.toMovieDetail()))
-            }else {
-                emit(Resource.Error("No movie found !"))
-            }
-        }catch (e: IOError) {
-            emit(Resource.Error("No internet connection"))
-        }catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage.toString()))
+            val movieDetail = repository.getMovieDetail(imdbId = imdbId).toMovieDetail()
+            emit(Resource.Success(movieDetail))
+        } catch (e: HttpException) {
+            emit(Resource.Error(message = e.localizedMessage ?: "Error!"))
+        } catch (e: IOError) {
+            emit(Resource.Error(message = "Could not reach internet"))
         }
     }
 

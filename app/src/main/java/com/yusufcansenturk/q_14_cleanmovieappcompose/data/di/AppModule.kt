@@ -10,7 +10,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -19,19 +18,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMovieApi(): MovieAPI {
+    fun provideMovieApi() : MovieAPI {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create()
+            .create(MovieAPI::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideMovieRepository(api: MovieAPI): MovieRepository {
+    fun provideMovieRepository(api : MovieAPI) : MovieRepository {
         return MovieRepositoryImpl(api = api)
     }
-
-
 }

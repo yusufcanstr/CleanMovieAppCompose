@@ -14,13 +14,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val getMovieUseCase: GetMovieUseCase,
+    private val getMoviesUseCase: GetMovieUseCase
 ) : ViewModel() {
 
     private val _state = mutableStateOf<MoviesState>(MoviesState())
-    val state: State<MoviesState> = _state
+    val state : State<MoviesState> = _state
 
-    private var job: Job? = null
+    private var job : Job? = null
 
     init {
         getMovies(_state.value.search)
@@ -28,14 +28,14 @@ class MoviesViewModel @Inject constructor(
 
     private fun getMovies(search: String) {
         job?.cancel()
-        job = getMovieUseCase.executeGetMovies(search).onEach {
+        job = getMoviesUseCase.executeGetMovies(search).onEach {
             when (it) {
                 is Resource.Success -> {
                     _state.value = MoviesState(movies = it.data ?: emptyList())
                 }
 
                 is Resource.Error -> {
-                    _state.value = MoviesState(error = it.message ?: "Error")
+                    _state.value = MoviesState(error = it.message ?: "Error!")
                 }
 
                 is Resource.Loading -> {
@@ -45,8 +45,8 @@ class MoviesViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun onEvent(event: MoviesEvent) {
-        when (event) {
+    fun onEvent(event : MoviesEvent) {
+        when(event) {
             is MoviesEvent.Search -> {
                 getMovies(event.searchString)
             }

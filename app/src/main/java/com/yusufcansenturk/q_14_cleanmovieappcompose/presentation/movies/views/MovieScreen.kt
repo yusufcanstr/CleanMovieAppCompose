@@ -1,5 +1,6 @@
 package com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.movies.views
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,8 +23,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.Screen
 import com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.movies.MoviesEvent
 import com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.movies.MoviesViewModel
+import kotlin.coroutines.coroutineContext
 
 
 @Composable
@@ -51,14 +54,10 @@ fun MovieScreen(
 
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state.movies) { movie ->
-                    Text(
-                        text = movie.Title,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        color = Color.White
-                    )
-                    println("FİLİM BAŞLIKLARI")
-                    println("TAG -> "  + movie.Title)
+                    MovieListRow(movie = movie, onItemClick = {
+                        //navController.navigate(Screen.MovieDetailScreen.route+"id")
+                        println(movie.Title + " -> " + movie.imdbID.toString())
+                    })
                 }
             }
         }
@@ -92,13 +91,13 @@ fun MovieSearchBar(
             maxLines = 1,
             singleLine = true,
             textStyle = TextStyle(color = Color.Black),
-            shape = RoundedCornerShape(10.dp),
+            shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.White),
 
             modifier = Modifier
                 .fillMaxWidth()
                 .shadow(5.dp, CircleShape)
-                .padding(20.dp)
+                .padding(horizontal = 20.dp)
                 .onFocusChanged {
                     isHintDisplayed = it.isFocused != true && text.isEmpty()
                 }
