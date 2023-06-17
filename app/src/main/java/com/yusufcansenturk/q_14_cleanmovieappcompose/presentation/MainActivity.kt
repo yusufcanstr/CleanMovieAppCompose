@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.movie_detail.views.MovieDetailScreen
 import com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.movies.views.MovieScreen
 import com.yusufcansenturk.q_14_cleanmovieappcompose.presentation.theme.Q14CleanMovieAppComposeTheme
 import com.yusufcansenturk.q_14_cleanmovieappcompose.util.Constants.IMDB_ID
@@ -31,8 +32,8 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen.MovieScreen.route) {
                             MovieScreen(navController = navController)
                         }
-                        composable(route = Screen.MovieDetailScreen.route+"/${IMDB_ID}") {
-
+                        composable(route = Screen.MovieDetailScreen.route+"/{${IMDB_ID}}") {
+                            MovieDetailScreen()
                         }
                     }
                 }
